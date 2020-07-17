@@ -1,0 +1,25 @@
+.modal {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 500px;
+    height: 300px;
+    background: red;
+}
+
+.modal__actions {
+    display: flex;
+}
+
+.modal__input {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal__input input {
+    margin: 5px;
+}

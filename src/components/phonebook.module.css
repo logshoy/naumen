@@ -1,0 +1,29 @@
+.phonebook {
+    width: 1000px;
+    min-height: 100px;
+    border: 2px solid #000;
+    margin: 0 auto;
+}
+
+.phonebook__actions {
+    width: 1000px;
+    margin: 5px auto;
+    display: flex;
+}
+
+.phonebook__actions input {
+    margin-right: 40px;
+}
+
+.phonebook__list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.phonebook__header {
+    display: flex;
+    border: 2px solid #000;
+    justify-content: space-around;
+    margin: 10px;
+}
