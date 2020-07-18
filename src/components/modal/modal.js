@@ -40,7 +40,8 @@ class Modal extends React.Component {
                 fieldValidationErrors.name = nameValid ? '' : ' Не корретное имя (Вводите только кириллицу и латинницу )';
                 break;
             case 'phone':
-                phoneValid = value.match(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g)
+                // eslint-disable-next-line
+                phoneValid = value.match(/^[+|0-9]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g)
                 fieldValidationErrors.phone = phoneValid ? '': ' Не корректный номер';
                 break;
             default:
@@ -91,7 +92,7 @@ class Modal extends React.Component {
         }
         return (
         <div className={classes.modal}>
-            <h2>Modal Window</h2>
+            <h2>Введите имя и номер контакта</h2>
             <div>{ this.state.dublicate 
                 ? <h1>ЭТО КОНТАКТ УЖЕ ЕСТЬ</h1>
                 : null }</div>
@@ -108,7 +109,7 @@ class Modal extends React.Component {
 
             <div className={classes.modal__actions}>
                 <button disabled={!this.state.formValid} onClick={this.save}>
-                    Лобавить
+                    Добавить
                 </button>
                 <button  onClick={this.onClose}>
                     Закрыть
