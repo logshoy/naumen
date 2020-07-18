@@ -36,7 +36,7 @@ class Modal extends React.Component {
         let phoneValid = this.state.phoneValid;
         switch(fieldName) {
             case 'name':
-                nameValid = value.match(/[a-zA-Zа-яёА-ЯЁ]/g);
+                nameValid = value.match(/[a-zA-Zа-яёА-ЯЁ0-9]/g);
                 fieldValidationErrors.name = nameValid ? '' : ' Не корретное имя (Вводите только кириллицу и латинницу )';
                 break;
             case 'phone':
@@ -55,6 +55,7 @@ class Modal extends React.Component {
     validateForm() {
         this.setState({formValid: this.state.nameValid &&
                                   this.state.phoneValid});
+        console.log(this.state.formValid)
     }    
 
     onClose = e => {
@@ -80,7 +81,8 @@ class Modal extends React.Component {
             this.setState({
                 name: '',
                 phone: '',
-                dublicate: false
+                dublicate: false,
+                formValid: false
             });
         }
         
@@ -97,9 +99,9 @@ class Modal extends React.Component {
                 ? <h1>ЭТО КОНТАКТ УЖЕ ЕСТЬ</h1>
                 : null }</div>
             <div className={classes.modal__input}>
-                <label for="name">Имя</label>
+                <label htmlFor="name">Имя</label>
                 <input type="text" id="name" name="name" value={this.state.name} onChange={this.handleUserInput} placeholder="Введите имя" />
-                <label for="phone">Номер</label>
+                <label htmlFor="phone">Номер</label>
                 <input type="text" id="phone" name="phone" value={this.state.phone} onChange={this.handleUserInput} placeholder="Введите номер"/>
             </div>
             

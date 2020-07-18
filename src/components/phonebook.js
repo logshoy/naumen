@@ -20,7 +20,7 @@ class phonebook extends React.Component {
     render() {
 
         const dataSearch = e => {
-            const value = e.target.value.toLowerCase();
+            const value = e.target.value;
                 this.props.searchHandler(value)
         }
 

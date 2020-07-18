@@ -2,6 +2,7 @@ import React from 'react'
 import classes from '../phonebook.module.css'
 import {removeContactLocal} from '../../store/actions/phonebook'
 import { connect } from 'react-redux';
+import Pagination from './Pagination/Pagination';
 
 class listcontacts extends React.Component {
 
@@ -53,10 +54,9 @@ class listcontacts extends React.Component {
                                 </li>
                             )
                         })}
-
-                    
-                        
                     </ul>
+
+                    <Pagination />
                 </div>
         </>
     )
