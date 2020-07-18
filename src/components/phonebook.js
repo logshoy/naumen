@@ -31,9 +31,10 @@ class phonebook extends React.Component {
             <>
                 <h1>Phonebook</h1>
                 <div className={classes.phonebook__actions}>
+                    <label>Поиск:</label>
                     <input 
                         value = {this.props.search}
-                        placeholder="Введите имя или номер" 
+                        placeholder="Введите имя" 
                         onChange={dataSearch}
                         />
                     <button onClick={e => {
@@ -43,21 +44,20 @@ class phonebook extends React.Component {
                 <div className={classes.phonebook}>
                     <div className={classes.phonebook__header}>
                         <div>
-                            №
-                        </div>
-                        <div>
                             Имя
                         </div> 
                         <div> 
                             Номер
+                        </div>
+                        <div> 
+                            Действие
                         </div>
                     </div>
                     <ul className={classes.phonebook__list}>
 
                         {this.props.contacts
                         .filter(contact => { 
-                          return contact.name.toLowerCase().includes(this.props.search.toLowerCase()) 
-                          || contact.phone.toLowerCase().includes(this.props.search.toLowerCase())
+                          return contact.name.toLowerCase().includes(this.props.search.toLowerCase())
                         })
                         .sort(function (a, b) {
                             if (a.name.toLowerCase() > b.name.toLowerCase()) {
@@ -76,7 +76,8 @@ class phonebook extends React.Component {
                                 >   
                                     <div>{contact.name}</div>
                                     <div>{contact.phone}</div>
-                                    <button onClick={this.removeContactHandler.bind(this, contact)}>Удалить</button>
+                                    <div><button onClick={this.removeContactHandler.bind(this, contact)}>Удалить</button></div>
+                                    
                                 </li>
                             )
                         })}

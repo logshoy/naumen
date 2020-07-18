@@ -9,10 +9,18 @@
     width: 1000px;
     margin: 5px auto;
     display: flex;
+    align-items: center;
+}
+
+.phonebook__actions label {
+    font-size: 16px;
+    line-height: 16px;
+    padding-bottom: 4px;
 }
 
 .phonebook__actions input {
     margin-right: 40px;
+    margin-left: 15px;
 }
 
 .phonebook__list {
@@ -26,4 +34,18 @@
     border: 2px solid #000;
     justify-content: space-around;
     margin: 10px;
+}
+
+.phonebook__header > * {
+    width: 33%;
+    text-align: center;
+    border-right: 2px solid #000;
+}
+
+.phonebook__header div:last-child {
+    border-right: 0px;
+}
+
+.phonebook__header > button {
+    padding: 0 30px;
 }
