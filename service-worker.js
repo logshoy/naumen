@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/naumen/precache-manifest.eae055430e76d9de40ca4c86d5397229.js"
+  "/naumen/precache-manifest.b2ed569aeeb4a2eea5a91b116a9b4a16.js"
 );
 
 self.addEventListener('message', (event) => {
