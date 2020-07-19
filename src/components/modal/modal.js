@@ -1,7 +1,8 @@
 import React from "react";
 import classes from "./modal.module.css";
 import { connect } from 'react-redux';
-import { addContactHandler } from '../../store/actions/phonebook'
+import { addContactHandler } from '../../store/actions/phonebook' 
+import FormErrors from './FormErrors/FormErrors'
 
 class Modal extends React.Component {
 
@@ -10,21 +11,52 @@ class Modal extends React.Component {
         this.state = {
             name: '',
             phone: '',
-            dublicate: false
+            dublicate: false,
+            formErrors: {name: '', phone: ''},
+            nameValid: false,
+            phoneValid: false,
+            formValid: false
         };
     
-        this.handleChangeName = this.handleChangeName.bind(this);
-        this.handleChangePhone = this.handleChangePhone.bind(this);
+        this.handleUserInput = this.handleUserInput.bind(this);
+
 
       }
 
-    handleChangeName(event) {
-        this.setState({name: event.target.value});
-    }
+    handleUserInput = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+        this.setState({[name]: value}, 
+            () => { this.validateField(name, value) })
+      }
 
-    handleChangePhone(event) {
-        this.setState({phone: event.target.value});
+    validateField(fieldName, value) {
+        let fieldValidationErrors = this.state.formErrors;
+        let nameValid = this.state.nameValid;
+        let phoneValid = this.state.phoneValid;
+        switch(fieldName) {
+            case 'name':
+                nameValid = value.match(/[a-zA-Zа-яёА-ЯЁ0-9]/g);
+                fieldValidationErrors.name = nameValid ? '' : ' Не корретное имя (Вводите только кириллицу и латинницу )';
+                break;
+            case 'phone':
+                // eslint-disable-next-line
+                phoneValid = value.match(/^[+|0-9]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g)
+                fieldValidationErrors.phone = phoneValid ? '': ' Не корректный номер';
+                break;
+            default:
+                break;
+            }
+            this.setState({formErrors: fieldValidationErrors,
+                            nameValid: nameValid,
+                            phoneValid: phoneValid
+                        }, this.validateForm);
     }
+    validateForm() {
+        this.setState({formValid: this.state.nameValid &&
+                                  this.state.phoneValid});
+        console.log(this.state.formValid)
+    }    
 
     onClose = e => {
         this.props.onClose && this.props.onClose(e);
@@ -49,7 +81,8 @@ class Modal extends React.Component {
             this.setState({
                 name: '',
                 phone: '',
-                dublicate: false
+                dublicate: false,
+                formValid: false
             });
         }
         
@@ -61,24 +94,28 @@ class Modal extends React.Component {
         }
         return (
         <div className={classes.modal}>
-            <h2>Modal Window</h2>
+            <h2>Введите имя и номер контакта</h2>
             <div>{ this.state.dublicate 
-                ? <h1>ЭТО КОНТАКТ УЖЕ ЕСТЬ</h1>
+                ? <h2 className={classes.modal__dublicate}>ЭТО КОНТАКТ УЖЕ ЕСТЬ</h2>
                 : null }</div>
             <div className={classes.modal__input}>
-                <label>Имя</label>
-                <input value={this.state.name} onChange={this.handleChangeName} placeholder="Введите имя" />
-                <label>Номер</label>
-                <input value={this.state.phone} onChange={this.handleChangePhone} placeholder="Введите номер"/>
+                <label htmlFor="name">Имя</label>
+                <input type="text" id="name" name="name" value={this.state.name} onChange={this.handleUserInput} placeholder="Введите имя" />
+                <label htmlFor="phone">Номер</label>
+                <input type="text" id="phone" name="phone" value={this.state.phone} onChange={this.handleUserInput} placeholder="Введите номер"/>
+            </div>
+            
+            <div >
+                <FormErrors formErrors={this.state.formErrors} />
             </div>
 
-            <div >
-            <button onClick={this.save}>
-                Сохранить
-            </button>
-            <button onClick={this.onClose}>
-                close
-            </button>
+            <div className={classes.modal__actions}>
+                <button disabled={!this.state.formValid} onClick={this.save}>
+                    Добавить
+                </button>
+                <button  onClick={this.onClose}>
+                    Закрыть
+                </button>
             </div>
         </div>
         );
