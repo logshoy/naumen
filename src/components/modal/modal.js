@@ -96,7 +96,7 @@ class Modal extends React.Component {
         <div className={classes.modal}>
             <h2>Введите имя и номер контакта</h2>
             <div>{ this.state.dublicate 
-                ? <h1>ЭТО КОНТАКТ УЖЕ ЕСТЬ</h1>
+                ? <h2 className={classes.modal__dublicate}>ЭТО КОНТАКТ УЖЕ ЕСТЬ</h2>
                 : null }</div>
             <div className={classes.modal__input}>
                 <label htmlFor="name">Имя</label>

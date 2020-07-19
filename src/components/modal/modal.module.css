@@ -1,15 +1,28 @@
 .modal {
     position: absolute;
     margin: auto;
+    text-align: left;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     width: 500px;
-    height: 400px;
+    height: 350px;
     background: white;
     border: 3px solid #000;
     border-radius: 5px;
+}
+
+.modal h2 {
+    text-align: center;
+}
+
+.modal__dublicate {
+    color: red;
+}
+
+.modal label {
+    margin-left: 5px;
 }
 
 .modal__actions {
@@ -26,4 +39,8 @@
 
 .modal__input input {
     margin: 5px;
+}
+
+.modal__error {
+    text-align: center;
 }

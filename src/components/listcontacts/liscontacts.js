@@ -6,21 +6,53 @@ import Pagination from './Pagination/Pagination';
 
 class listcontacts extends React.Component {
 
+    constructor(props) {
+        super(props) 
+        this.state = {
+            postsPerPage: 10,
+            currentPage: 1
+        }
+    }
+
     removeContactHandler(contact) {
         this.props.removeContactLocal(contact)
     }
 
+    
+    currentPosts() { 
+        return this.props.contacts.map(con => {
+            return (
+                <li>con</li>
+            )
+        })
+    }
+
     render() {
 
+    const indexOfLastPost = this.state.currentPage * this.state.postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - this.state.postsPerPage;
+
+    const paginate = pageNumber => {
+        this.setState({
+            currentPage: pageNumber
+        })
+    };
+
+    const listContacts = this.props.contacts
+        .filter(contact => { 
+          return contact.name.toLowerCase().startsWith(this.props.search.toLowerCase())
+        })
+        .slice(indexOfFirstPost, indexOfLastPost)
+
     return (
-        <> 
+        <>  
             <div className={classes.phonebook}>
                     <div className={classes.phonebook__header}>
                         <div>
                             Имя
                         </div> 
                         <div> 
-                            Номер
+                            Номер 
                         </div>
                         <div> 
                             Действие
@@ -28,19 +60,7 @@ class listcontacts extends React.Component {
                     </div>
                     <ul className={classes.phonebook__list}>
 
-                        {this.props.contacts
-                        .filter(contact => { 
-                          return contact.name.toLowerCase().includes(this.props.search.toLowerCase())
-                        })
-                        .sort(function (a, b) {
-                            if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                              return 1;
-                            }
-                            if (a.name.toLowerCase() < b.name.toLowerCase()) {
-                              return -1;
-                            }
-                            return 0
-                        })
+                        {listContacts
                         .map(contact => {
                             return (
                                 <li 
@@ -55,9 +75,11 @@ class listcontacts extends React.Component {
                             )
                         })}
                     </ul>
-
-                    <Pagination />
                 </div>
+                <Pagination 
+                    postsPerPage={this.state.postsPerPage}
+                    totalPosts={this.props.contacts.length}
+                    paginate={paginate} />
         </>
     )
     }
